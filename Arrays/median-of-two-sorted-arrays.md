@@ -1,17 +1,19 @@
 <!-- https://leetcode.com/problems/median-of-two-sorted-arrays/description/?envType=problem-list-v2&envId=array -->
 
-/**
- * @param {number[]} nums1
- * @param {number[]} nums2
- * @return {number}
- */
+/\*\*
 
- ## Brute force code (merge + sort)
- ⏱ Time: O((m+n)log(m+n))
+- @param {number[]} nums1
+- @param {number[]} nums2
+- @return {number}
+  \*/
+
+## Brute force code (merge + sort)
+
+⏱ Time: O((m+n)log(m+n))
 📦 Space: O(m+n)
 var findMedianSortedArrays = function(nums1, nums2) {
-    const mergedArr = [...nums1, ...nums2].sort((a,b) => a-b);
-    const n = mergedArr.length;
+const mergedArr = [...nums1, ...nums2].sort((a,b) => a-b);
+const n = mergedArr.length;
 
     if(n%2 === 1){
         return mergedArr[Math.floor(n/2)];
@@ -20,14 +22,16 @@ var findMedianSortedArrays = function(nums1, nums2) {
         const mid2 = mergedArr[n / 2 - 1];
         return (mid1 + mid2) / 2
     }
+
 };
 
 ## Better brute force (merge without sorting)
+
 ⏱ Time: O(m+n)
 📦 Space: O(m+n)
 var findMedianSortedArrays = function(nums1, nums2) {
-    let i = 0, j = 0;
-    let mergedArr = [];
+let i = 0, j = 0;
+let mergedArr = [];
 
     while( i < nums1.length && j < nums2.length){
         if(nums1[i] < nums2[j]){
@@ -47,19 +51,18 @@ var findMedianSortedArrays = function(nums1, nums2) {
         return (mergedArr[n/2] + mergedArr[n/2 - 1]) / 2;
     }
 
-
-    
 };
 
 ## Optimal Approach
+
 ⏱ Time: O(log(m+n))
 📦 Space: O(1)
 
 var findMedianSortedArrays = function(nums1, nums2) {
-    // Ensure nums1 is the smaller array
-    if (nums1.length > nums2.length) {
-        return findMedianSortedArrays(nums2, nums1);
-    }
+// Ensure nums1 is the smaller array
+if (nums1.length > nums2.length) {
+return findMedianSortedArrays(nums2, nums1);
+}
 
     let m = nums1.length;
     let n = nums2.length;
@@ -92,13 +95,11 @@ var findMedianSortedArrays = function(nums1, nums2) {
             left = partitionX + 1;
         }
     }
+
 };
 
-
-
-
-
 ## How to remember this in interviews
+
 “We binary search on the smaller array and adjust partitions until the left side max is less than or equal to the right side min.”
 
 "We binary search on the smaller array to find a partition such that the left half contains half the total elements and the maximum element on the left is less than or equal to the minimum element on the right. Once this condition is satisfied, we compute the median from boundary elements."
