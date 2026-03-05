@@ -10,6 +10,7 @@ Each path should be printed as a string like `121` (take 1 step, then 2, then 1)
 
 ## Intuition
 From stair `n`, you can try 3 choices:
+Each jump reduces the remaining steps from n by 1, 2, or 3.
 1. Jump `1` step -> solve for `n - 1`
 2. Jump `2` steps -> solve for `n - 2`
 3. Jump `3` steps -> solve for `n - 3`
@@ -28,6 +29,16 @@ Here, `f(n, path)` becomes `f(n-1, path+"1")`, `f(n-2, path+"2")`, `f(n-3, path+
 1. Start with `printStairPaths(n, "")`.
 2. If `n == 0`, print `path` (valid complete path), return.
 3. If `n < 0`, return (invalid path).
+    Sometimes we may overshoot the staircase.
+    Example:
+    n = 1
+    jump 2
+    Remaining steps: 1 - 2 = -1
+    This is invalid.
+    So we stop recursion.
+    if n < 0
+     return
+    
 4. Recurse in this order:
    1. `n-1` with `path + "1"`
    2. `n-2` with `path + "2"`
